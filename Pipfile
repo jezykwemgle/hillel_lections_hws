@@ -4,6 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+flake8 = "*"
+isort = "*"
+black = "*"
+flake8-builtins = "*"
+flake8-import-order = "*"
+flake8-print = "*"
+pre-commit = "*"
 
 [dev-packages]
 
