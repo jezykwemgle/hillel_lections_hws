@@ -1,0 +1,8 @@
+https://docs.python.org/3/howto/logging.html,
+https://docs.python.org/3/library/asyncio-task.html,
+https://lms.ithillel.ua/,
+https://pokeapi.co/api/v2/pokemon/1,
+https://pokeapi.co/api/v2/pokemon/2,
+https://pokeapi.co/api/v2/pokemon/3,
+https://pokeapi.co/api/v2/pokemon/4,
+https://stackoverflow.com/questions/54088263/runtimewarning-enable-tracemalloc-to-get-the-object-allocation-traceback-with-a

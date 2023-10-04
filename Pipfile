@@ -15,6 +15,7 @@ requests = "*"
 asyncio = "*"
 grequests = "*"
 httpx = "*"
+aiohttp = "*"
 
 [dev-packages]
 
