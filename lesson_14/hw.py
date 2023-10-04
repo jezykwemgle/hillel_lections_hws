@@ -2,6 +2,7 @@ import asyncio
 import logging
 
 import aiohttp
+from aiohttp import ClientTimeout
 
 logging.basicConfig(filename="scraper.log", filemode="w", level=logging.INFO)
 
@@ -29,7 +30,8 @@ class Scraper:
     async def scraper(self, session, url):
         try:
             async with self.semaphore:
-                async with session.get(url) as response:
+                timeout = ClientTimeout(total=10)
+                async with session.get(url, timeout=timeout) as response:
                     if response.status == 200:
                         data = await response.text()
                         await self.__queue.put(data)
@@ -38,6 +40,8 @@ class Scraper:
                         logging.error(f"Bad status: {response.status}")
         except aiohttp.ClientError as e:
             logging.error(f"Error with a client: \n {e}")
+        except asyncio.TimeoutError:
+            logging.error(f"Timeout error while scraping {url}")
 
     async def saving(self, filename: str):
         try:
