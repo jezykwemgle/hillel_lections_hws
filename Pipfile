@@ -16,6 +16,8 @@ asyncio = "*"
 grequests = "*"
 httpx = "*"
 aiohttp = "*"
+pydentic = "*"
+pydantic = "*"
 
 [dev-packages]
 
