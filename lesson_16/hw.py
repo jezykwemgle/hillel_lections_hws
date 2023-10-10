@@ -66,28 +66,35 @@ def arg_parser():
         description="This program helps to get exchange rates",
     )
     parser.add_argument(
-        "currency_from", choices=[c.lower() for c in currency], nargs="+"
+        "currency_from",
+        choices=[c.lower() for c in currency],
+        nargs="+",
     )
     parser.add_argument(
-        "--target", choices=[c.lower() for c in currency], nargs="+"
+        "--target", choices=[c.lower() for c in currency], required=True
     )
     return parser.parse_args()
 
 
 async def main():
     args: argparse.Namespace = arg_parser()
+    currency_pairs = [
+        AlphavantageCurrencyExchangeRequest(
+            currency_from=currency_from, currency_to=args.target
+        )
+        for currency_from in args.currency_from
+    ]
+
     async with aiohttp.ClientSession() as session:
         tasks = [
-            fetch_currency_exchange_rate(
-                AlphavantageCurrencyExchangeRequest(
-                    currency_from=currency_from, currency_to=args.target[0]
-                ),
-                session,
-            )
-            for currency_from in args.currency_from
+            fetch_currency_exchange_rate(schema, session)
+            for schema in currency_pairs
         ]
-        return await asyncio.gather(*tasks)
+        results = await asyncio.gather(*tasks)
+
+        for result in results:
+            print(result)  # noqa
 
 
 if __name__ == "__main__":
-    print(asyncio.run(main()))  # noqa
+    asyncio.run(main())
