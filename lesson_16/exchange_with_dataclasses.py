@@ -49,9 +49,11 @@ def main():
     schema = AlphavantageCurrencyExchangeRequest(
         currency_from=currency_from, currency_to=currency_to
     )
-    result = fetch_currency_exchange_rate(schema=schema)
-    print(  # noqa: T201
-        f"{result.currency_from} --> " f"{result.currency_to}: {result.rate}"
+    response = fetch_currency_exchange_rate(schema=schema)
+    print(  # noqa
+        f"{response.results.currency_from} "
+        f"--> {response.results.currency_to}: "
+        f"{response.results.currency_rate}"
     )
 
 
